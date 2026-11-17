@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="briefing">
+  <title>Revisión y actualización del Plan de Centro con IA — Ficha de práctica docente</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces: warm stone-white paper */
+      --background: #faf9f5;
+      --surface-container-low: #ffffff;
+      --surface-container: #f1efe8;
+      --surface-container-high: #e6e2d6;
+
+      /* Ink */
+      --on-surface: #17181a;
+      --on-surface-variant: #56585c;
+
+      /* Rules */
+      --outline: #17181a;
+      --outline-variant: #dedad0;
+
+      /* Accents */
+      --primary: #17181a;
+      --on-primary: #faf9f5;
+      --primary-container: #f2b705;
+      --on-primary-container: #17181a;
+      --secondary: #1f4e5f;
+      --on-secondary: #ffffff;
+      --tertiary: #785008;
+      --error: #b42318;
+      --on-error: #ffffff;
+
+      /* Semantic & role comparison tokens */
+      --positive: #205740;
+      --positive-bg: #edf5f1;
+      --positive-border: #9ec4b3;
+      --ai-accent: #1f4e5f;
+      --ai-bg: #eef4f6;
+      --ai-border: #b6cdd5;
+      --warning: #785008;
+      --warning-bg: #fdf3d7;
+      --warning-border: #d99000;
+      --focus: #1f4e5f;
+
+      /* Data series */
+      --data-1: #1f4e5f;
+      --data-2: #d99000;
+      --data-3: #2b6e52;
+      --data-4: #b84a39;
+      --data-context: #c4bfb2;
+
+      /* Fonts */
+      --font-headline: 'Source Serif 4', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.375rem;
+      --rounded-full: 0.25rem;
+
+      /* Style effects */
+      --section-rule: 1.5px solid var(--outline);
+      --card-border: 1px solid var(--outline-variant);
+      --badge-radius: 2px;
+      --heading-tracking: -0.02em;
+      --label-tracking: 0.08em;
+
+      /* Narrative type scale */
+      --display-size: clamp(2.15rem, 1.45rem + 2.6vw, 3.35rem);
+      --headline-size: clamp(1.55rem, 1.2rem + 1.35vw, 2.2rem);
+      --subhead-size: clamp(1.125rem, 1.02rem + 0.45vw, 1.35rem);
+      --body-size: clamp(1rem, 0.96rem + 0.18vw, 1.0625rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-2xl);
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Briefing dossier bars and typography */
+    .dossier-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .dossier-bar-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .dossier-pill {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--badge-radius);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .dossier-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      letter-spacing: var(--heading-tracking);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .hero-title {
+      font-size: var(--display-size);
+      line-height: 1.08;
+      margin-bottom: var(--space-sm);
+    }
+    .section-title {
+      font-size: var(--headline-size);
+      line-height: 1.15;
+      margin-bottom: var(--space-sm);
+    }
+    .standfirst {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      line-height: 1.45;
+      color: var(--secondary);
+      max-width: 65ch;
+      margin: 0 0 var(--space-lg);
+    }
+    .section-lead {
+      color: var(--on-surface-variant);
+      max-width: 65ch;
+      margin: 0 0 var(--space-lg);
+    }
+
+    /* Pending confirmation badge (strictly for bracketed items) */
+    .pending-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--warning-bg);
+      color: var(--warning);
+      border: 1px solid var(--warning-border);
+      border-radius: var(--badge-radius);
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.45rem;
+      vertical-align: middle;
+      line-height: 1.3;
+    }
+    .pending-note {
+      background: var(--warning-bg);
+      border-left: 3px solid var(--warning-border);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+      margin-top: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .pending-note p {
+      margin: 0;
+      font-size: 0.9375rem;
+      color: var(--on-surface);
+    }
+
+    /* Metadata & context grid */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    .figure-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+    }
+    .figure-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-xs);
+      display: block;
+    }
+    .figure-value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.25rem;
+      line-height: 1.25;
+      color: var(--on-surface);
+      font-variant-numeric: tabular-nums;
+      margin-bottom: var(--space-xs);
+    }
+    .figure-detail {
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    .context-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .aside-box {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 0 0 var(--rounded) var(--rounded);
+    }
+    .aside-title {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      margin: 0 0 var(--space-sm);
+    }
+    .aside-box p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+    .aside-box p + p {
+      margin-top: var(--space-sm);
+    }
+
+    /* Section 01: Interactive 5-session timeline */
+    .timeline-controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+    .timeline-mode-btn {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .timeline-mode-btn:hover {
+      background: var(--surface-container-high);
+    }
+    .timeline-mode-btn[aria-pressed="true"] {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .timeline-track {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+    .session-tab {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 68px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out);
+      position: relative;
+    }
+    .session-tab:hover {
+      background: var(--surface-container);
+    }
+    .session-tab[aria-selected="true"] {
+      background: var(--secondary);
+      color: var(--on-secondary);
+      border-color: var(--secondary);
+      box-shadow: 0 2px 0 var(--primary);
+    }
+    .session-tab-num {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--secondary);
+    }
+    .session-tab[aria-selected="true"] .session-tab-num {
+      color: var(--primary-container);
+    }
+    .session-tab-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--on-surface);
+    }
+    .session-tab[aria-selected="true"] .session-tab-title {
+      color: var(--on-secondary);
+    }
+
+    .session-stage {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-top: 3px solid var(--secondary);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .session-stage-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: 1px solid var(--outline-variant);
+      padding-bottom: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+    .session-badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .session-index-pill {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--surface-container);
+      color: var(--secondary);
+      padding: 0.25rem 0.55rem;
+      border-radius: var(--badge-radius);
+      text-transform: uppercase;
+    }
+    .session-time {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+    }
+    .session-stage-title {
+      font-family: var(--font-headline);
+      font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.6rem);
+      font-weight: 600;
+      margin: 0 0 var(--space-xs);
+    }
+    .session-stage-summary {
+      margin: 0 0 var(--space-lg);
+      max-width: 65ch;
+      color: var(--on-surface);
+    }
+
+    .session-split {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    .role-panel {
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      border: 1px solid var(--outline-variant);
+    }
+    .role-panel--ai {
+      background: var(--ai-bg);
+      border-color: var(--ai-border);
+    }
+    .role-panel--human {
+      background: var(--positive-bg);
+      border-color: var(--positive-border);
+    }
+    .role-panel-label {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-xs);
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .role-panel--ai .role-panel-label { color: var(--ai-accent); }
+    .role-panel--human .role-panel-label { color: var(--positive); }
+    .role-panel p {
+      margin: 0;
+      font-size: 0.9375rem;
+      line-height: 1.5;
+    }
+
+    .session-footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: 1px solid var(--outline-variant);
+    }
+    .session-output {
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+    }
+    .session-output strong {
+      color: var(--on-surface);
+    }
+    .nav-btn-group {
+      display: flex;
+      gap: var(--space-sm);
+    }
+    .btn-nav {
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .btn-nav:hover:not(:disabled) {
+      background: var(--surface-container-high);
+      border-color: var(--outline);
+    }
+    .btn-nav:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .btn-nav--primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-nav--primary:hover:not(:disabled) {
+      background: var(--secondary);
+      border-color: var(--secondary);
+    }
+
+    .all-sessions-list {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .all-sessions-list[hidden],
+    .single-session-view[hidden] {
+      display: none;
+    }
+
+    /* Section 02: 4D expandable cards */
+    .toolbar-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+    .legend-inline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      font-size: 0.875rem;
+    }
+    .legend-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      font-weight: 600;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+    .legend-dot--ai { background: var(--ai-accent); }
+    .legend-dot--human { background: var(--positive); }
+
+    .accordion-stack {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .d4-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+    }
+    .d4-trigger {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      padding: var(--space-md) var(--space-lg);
+      min-height: 64px;
+      text-align: left;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: var(--space-md);
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .d4-trigger:hover {
+      background: var(--surface-container);
+    }
+    .d4-trigger[aria-expanded="true"] {
+      background: var(--surface-container);
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    .d4-index {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.8125rem;
+      color: var(--secondary);
+      background: var(--surface-container);
+      border: 1px solid var(--outline-variant);
+      padding: 0.3rem 0.5rem;
+      border-radius: var(--badge-radius);
+    }
+    .d4-trigger[aria-expanded="true"] .d4-index {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      border-color: var(--primary-container);
+    }
+    .d4-heading-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .d4-title {
+      font-family: var(--font-headline);
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1.2;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .d4-subtitle {
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+    }
+    .d4-chevron {
+      color: var(--secondary);
+      transition: transform var(--dur-short) var(--ease-out);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+    }
+    .d4-trigger[aria-expanded="true"] .d4-chevron {
+      transform: rotate(180deg);
+    }
+    .d4-panel {
+      padding: var(--space-lg);
+    }
+    .d4-panel[hidden] {
+      display: none;
+    }
+    .d4-columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .d4-role-box {
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      border: 1px solid var(--outline-variant);
+    }
+    .d4-role-box--ai {
+      background: var(--ai-bg);
+      border-left: 4px solid var(--ai-accent);
+    }
+    .d4-role-box--human {
+      background: var(--positive-bg);
+      border-left: 4px solid var(--positive);
+    }
+    .d4-role-head {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 0 0 var(--space-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .d4-role-box--ai .d4-role-head { color: var(--ai-accent); }
+    .d4-role-box--human .d4-role-head { color: var(--positive); }
+    .d4-role-list {
+      margin: 0;
+      padding-left: 1.1rem;
+      font-size: 0.9375rem;
+      line-height: 1.5;
+    }
+    .d4-role-list li + li {
+      margin-top: var(--space-xs);
+    }
+
+    /* Section 03: DUA */
+    .dua-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+    .dua-card {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-top: 3px solid var(--secondary);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .dua-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .dua-num {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--secondary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .dua-title {
+      font-family: var(--font-headline);
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0;
+    }
+    .dua-list {
+      margin: var(--space-xs) 0 0;
+      padding-left: 1.15rem;
+      font-size: 0.9375rem;
+      line-height: 1.55;
+    }
+    .dua-list li + li {
+      margin-top: var(--space-sm);
+    }
+
+    .schema-strip {
+      background: var(--surface-container-low);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+    .schema-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .schema-table-wrap {
+      overflow-x: auto;
+    }
+    .schema-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+    .schema-table th {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: left;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container);
+      border-bottom: var(--section-rule);
+      color: var(--on-surface);
+    }
+    .schema-table td {
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 1px solid var(--outline-variant);
+      color: var(--on-surface-variant);
+      vertical-align: top;
+    }
+
+    .dua-verification-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    /* Section 04: Highlighted evaluation & replication box */
+    .takeaway-box {
+      background: var(--surface-container-low);
+      border: 2px solid var(--outline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl);
+    }
+    .takeaway-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      border-bottom: var(--section-rule);
+      padding-bottom: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    .takeaway-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    .metric-tile {
+      background: var(--surface-container);
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      border-left: 3px solid var(--secondary);
+    }
+    .metric-tile strong {
+      display: block;
+      font-family: var(--font-headline);
+      font-size: 1.25rem;
+      margin-top: var(--space-xs);
+    }
+
+    .advice-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .advice-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: var(--space-md);
+    }
+    .advice-item {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-md);
+      align-items: start;
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    .advice-item:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+    .advice-num {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.875rem;
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--badge-radius);
+    }
+    .advice-item h3 {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0 0 0.2rem;
+    }
+    .advice-item p {
+      margin: 0;
+      font-size: 0.9375rem;
+      color: var(--on-surface-variant);
+    }
+
+    .checklist-card {
+      background: var(--surface-container);
+      border-top: var(--section-rule);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: 0 0 var(--rounded) var(--rounded);
+    }
+    .checklist-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-sm);
+    }
+    .checklist-status {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--secondary);
+    }
+    .check-items {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .check-label {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      padding: var(--space-xs) 0;
+      min-height: 44px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .check-label input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: var(--secondary);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    .dossier-footer {
+      border-top: var(--section-rule);
+      padding-top: var(--space-lg);
+      margin-top: var(--space-sm);
+      display: grid;
+      gap: var(--space-sm);
+      color: var(--on-surface-variant);
+      font-size: 0.875rem;
+    }
+    .footer-license-tag {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--on-surface);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .dossier-footer p {
+      margin: 0;
+      line-height: 1.55;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 820px) {
+      .timeline-track {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .context-split,
+      .advice-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-lg) var(--space-md) var(--space-xl);
+        gap: var(--space-xl);
+      }
+      .timeline-track,
+      .session-split,
+      .d4-columns {
+        grid-template-columns: 1fr;
+      }
+      .takeaway-box {
+        padding: var(--space-lg) var(--space-md);
+      }
+      .d4-trigger {
+        padding: var(--space-md);
+      }
+      .d4-panel {
+        padding: var(--space-md);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-grid">
+
+    <!-- HERO Y CONTEXTO -->
+    <header>
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">Ficha de uso de la IA</span>
+          <span class="dossier-meta">Grupo de Trabajo «IA en la práctica docente» · Curso 2026/2027</span>
+        </div>
+        <span class="dossier-meta">Línea c) Gestión de centro</span>
+      </div>
+
+      <h1 class="hero-title">Revisión y actualización del Plan de Centro con IA</h1>
+      <p class="standfirst">Cómo Mª José Cabeza y Abraham actualizaron un documento institucional obligatorio en cinco sesiones, combinando iteración asistida con Gemini, lectura compartida en pareja y accesibilidad DUA para el claustro.</p>
+
+      <div class="meta-grid" aria-label="Datos identificativos de la ficha">
+        <article class="figure-card">
+          <span class="figure-label">Autoría y centro</span>
+          <div class="figure-value">Mª José Cabeza y Abraham</div>
+          <p class="figure-detail">Centro: <span class="pending-badge">Pendiente de confirmar</span></p>
+        </article>
+        <article class="figure-card">
+          <span class="figure-label">Ámbito y punto de partida</span>
+          <div class="figure-value">Infantil y Primaria</div>
+          <p class="figure-detail">Nivel: todo el centro · Sobre el Plan de Centro vigente.</p>
+        </article>
+        <article class="figure-card">
+          <span class="figure-label">Herramienta y privacidad</span>
+          <div class="figure-value">Gemini (autorizada)</div>
+          <p class="figure-detail">Autorizada por la Consejería · Sin nombres ni datos del alumnado.</p>
+        </article>
+        <article class="figure-card">
+          <span class="figure-label">Modo de uso y dedicación</span>
+          <div class="figure-value">Aumentación · 5 sesiones</div>
+          <p class="figure-detail">Horario de 10:00 a 14:00 h (20 h totales con revisión incluida).</p>
+        </article>
+      </div>
+
+      <div class="context-split">
+        <div class="figure-card">
+          <span class="figure-label">Qué necesitaban resolver</span>
+          <p style="margin: 0 0 var(--space-sm);">El Plan de Centro debía ponerse al día con la normativa vigente y ajustarse a la realidad actual del colegio antes de presentar sus modificaciones al claustro para su aprobación.</p>
+          <p style="margin: 0; color: var(--on-surface-variant); font-size: 0.95rem;"><strong>Modo de trabajo en aumentación:</strong> iteración continua a lo largo de cinco sesiones («pedíamos, revisábamos y volvíamos a pedir»), reservando el criterio y la validación final para el equipo docente.</p>
+        </div>
+        <aside class="aside-box" aria-label="Carácter del documento">
+          <p class="aside-title">¿Documento de obligada realización?</p>
+          <p><strong>Sí.</strong> La revisión actualiza el Plan a la normativa vigente y lo contextualiza a la realidad del centro antes de llevarlo al claustro.</p>
+          <p><strong>No se hace solo para ganar tiempo:</strong> persigue coherencia normativa, prevención de situaciones no deseadas y apropiación real por parte del profesorado.</p>
+        </aside>
+      </div>
+    </header>
+
+    <!-- SECCIÓN 01: LÍNEA DE TIEMPO INTERACTIVA -->
+    <section aria-labelledby="sec-timeline">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">01 · Proceso</span>
+          <span class="dossier-meta">Planificación de la documentación del centro · 10:00 a 14:00 h</span>
+        </div>
+      </div>
+
+      <h2 id="sec-timeline" class="section-title">Línea de tiempo: cinco sesiones hasta la aprobación en claustro</h2>
+      <p class="section-lead">Recorre cada sesión para ver cómo se combinó la petición dirigida a Gemini con la revisión humana punto a punto en pareja y la preparación para el claustro.</p>
+
+      <div class="timeline-controls-bar">
+        <span class="dossier-meta" id="timeline-progress-text">Sesión 1 de 5</span>
+        <button type="button" class="timeline-mode-btn" id="toggle-timeline-view" aria-pressed="false" onclick="toggleTimelineView()">
+          Ver las 5 sesiones a la vez
+        </button>
+      </div>
+
+      <div class="single-session-view" id="single-session-view">
+        <div class="timeline-track" role="tablist" aria-label="Sesiones de trabajo">
+          <button type="button" role="tab" class="session-tab" id="tab-s1" aria-selected="true" aria-controls="session-stage" onclick="selectSession(0)">
+            <span class="session-tab-num">Sesión 01</span>
+            <span class="session-tab-title">Documentos de partida y encargo</span>
+          </button>
+          <button type="button" role="tab" class="session-tab" id="tab-s2" aria-selected="false" aria-controls="session-stage" onclick="selectSession(1)">
+            <span class="session-tab-num">Sesión 02</span>
+            <span class="session-tab-title">Primera vuelta normativa</span>
+          </button>
+          <button type="button" role="tab" class="session-tab" id="tab-s3" aria-selected="false" aria-controls="session-stage" onclick="selectSession(2)">
+            <span class="session-tab-num">Sesión 03</span>
+            <span class="session-tab-title">Iteración y contraste en pareja</span>
+          </button>
+          <button type="button" role="tab" class="session-tab" id="tab-s4" aria-selected="false" aria-controls="session-stage" onclick="selectSession(3)">
+            <span class="session-tab-num">Sesión 04</span>
+            <span class="session-tab-title">PDF accesible, tabla y resumen</span>
+          </button>
+          <button type="button" role="tab" class="session-tab" id="tab-s5" aria-selected="false" aria-controls="session-stage" onclick="selectSession(4)">
+            <span class="session-tab-num">Sesión 05</span>
+            <span class="session-tab-title">Cierre sin IA y paso a claustro</span>
+          </button>
+        </div>
+
+        <article class="session-stage" id="session-stage" role="tabpanel" aria-labelledby="tab-s1">
+          <!-- Renderizado dinámico mediante JS seguro -->
+        </article>
+      </div>
+
+      <div class="all-sessions-list" id="all-sessions-list" hidden>
+        <!-- Renderizado completo para escaneo simultáneo -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN 02: LAS 4D EN TARJETAS DESPLEGABLES -->
+    <section aria-labelledby="sec-4d">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">02 · Las 4D</span>
+          <span class="dossier-meta">Marco AI Fluency · Reparto entre IA y docentes</span>
+        </div>
+      </div>
+
+      <h2 id="sec-4d" class="section-title">Las 4D de la experiencia: qué hizo la IA y qué hicieron las personas</h2>
+      <p class="section-lead">Despliega cada dimensión para comprobar cómo se delimitó el apoyo de Gemini frente al criterio profesional y ético de Mª José Cabeza y Abraham.</p>
+
+      <div class="toolbar-row">
+        <div class="legend-inline" aria-label="Leyenda de responsabilidades">
+          <span class="legend-chip"><span class="legend-dot legend-dot--ai" aria-hidden="true"></span> Tareas de la IA (Gemini)</span>
+          <span class="legend-chip"><span class="legend-dot legend-dot--human" aria-hidden="true"></span> Tareas de las personas (docentes)</span>
+        </div>
+        <button type="button" class="timeline-mode-btn" id="toggle-all-4d" aria-pressed="false" onclick="toggleAll4D()">
+          Desplegar las 4 tarjetas
+        </button>
+      </div>
+
+      <div class="accordion-stack">
+        <!-- 1. Delegación -->
+        <article class="d4-card">
+          <button type="button" class="d4-trigger" id="d4-btn-0" aria-expanded="true" aria-controls="d4-panel-0" onclick="toggle4D(0)">
+            <span class="d4-index">01</span>
+            <span class="d4-heading-group">
+              <span class="d4-title">Delegación</span>
+              <span class="d4-subtitle">La IA revisó frente a la normativa; la decisión final no se delegó.</span>
+            </span>
+            <span class="d4-chevron" aria-hidden="true">
+              <i data-lucide="chevron-down"></i>
+            </span>
+          </button>
+          <div class="d4-panel" id="d4-panel-0">
+            <div class="d4-columns">
+              <div class="d4-role-box d4-role-box--ai">
+                <p class="d4-role-head"><i data-lucide="cpu" aria-hidden="true"></i> Realizó la IA</p>
+                <ul class="d4-role-list">
+                  <li>Revisó el Plan de Centro vigente contrastándolo frente a la normativa aportada por los docentes.</li>
+                  <li>Generó los borradores de los documentos revisados.</li>
+                </ul>
+              </div>
+              <div class="d4-role-box d4-role-box--human">
+                <p class="d4-role-head"><i data-lucide="users" aria-hidden="true"></i> Realizaron las personas</p>
+                <ul class="d4-role-list">
+                  <li>Revisaron <strong>sin IA</strong> cada uno de los documentos generados.</li>
+                  <li>Decidieron qué cambios entraban en la versión final y los llevaron al claustro.</li>
+                  <li><strong>La decisión final nunca se delegó.</strong></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Descripción -->
+        <article class="d4-card">
+          <button type="button" class="d4-trigger" id="d4-btn-1" aria-expanded="false" aria-controls="d4-panel-1" onclick="toggle4D(1)">
+            <span class="d4-index">02</span>
+            <span class="d4-heading-group">
+              <span class="d4-title">Descripción</span>
+              <span class="d4-subtitle">Premisas concretas, objetivos preventivos y documentación acotada.</span>
+            </span>
+            <span class="d4-chevron" aria-hidden="true">
+              <i data-lucide="chevron-down"></i>
+            </span>
+          </button>
+          <div class="d4-panel" id="d4-panel-1" hidden>
+            <div class="d4-columns">
+              <div class="d4-role-box d4-role-box--ai">
+                <p class="d4-role-head"><i data-lucide="cpu" aria-hidden="true"></i> Realizó la IA</p>
+                <ul class="d4-role-list">
+                  <li>Procesó el Plan de Centro y la legislación recibida siguiendo las premisas indicadas.</li>
+                  <li>Devolvió la documentación revisada en formato PDF.</li>
+                </ul>
+              </div>
+              <div class="d4-role-box d4-role-box--human">
+                <p class="d4-role-head"><i data-lucide="users" aria-hidden="true"></i> Realizaron las personas</p>
+                <ul class="d4-role-list">
+                  <li>Aportaron directamente el Plan de Centro vigente y la legislación actualizada concreta.</li>
+                  <li>Definieron premisas precisas y objetivos claros para prevenir y evitar situaciones no deseadas.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. Discernimiento -->
+        <article class="d4-card">
+          <button type="button" class="d4-trigger" id="d4-btn-2" aria-expanded="false" aria-controls="d4-panel-2" onclick="toggle4D(2)">
+            <span class="d4-index">03</span>
+            <span class="d4-heading-group">
+              <span class="d4-title">
+                Discernimiento
+                <span class="pending-badge">Contiene punto pendiente de confirmar</span>
+              </span>
+              <span class="d4-subtitle">Comprobación en pareja mediante lecturas compartidas, punto a punto.</span>
+            </span>
+            <span class="d4-chevron" aria-hidden="true">
+              <i data-lucide="chevron-down"></i>
+            </span>
+          </button>
+          <div class="d4-panel" id="d4-panel-2" hidden>
+            <div class="d4-columns">
+              <div class="d4-role-box d4-role-box--ai">
+                <p class="d4-role-head"><i data-lucide="cpu" aria-hidden="true"></i> Realizó la IA</p>
+                <ul class="d4-role-list">
+                  <li>Propuso ajustes de actualización sobre el texto base, sin capacidad autónoma para certificar el encaje legal definitivo ni la integridad institucional.</li>
+                </ul>
+              </div>
+              <div class="d4-role-box d4-role-box--human">
+                <p class="d4-role-head"><i data-lucide="users" aria-hidden="true"></i> Realizaron las personas</p>
+                <ul class="d4-role-list">
+                  <li>Comprobaron todo el documento entre dos personas con lecturas compartidas, punto a punto.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="pending-note" role="note" aria-label="Detalle pendiente de confirmar en Discernimiento">
+              <div><span class="pending-badge">Pendiente de confirmar</span></div>
+              <p>Contrastamos cada referencia normativa con el BOJA y comprobamos que la revisión no eliminaba nada de lo que el Plan debe recoger.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. Diligencia -->
+        <article class="d4-card">
+          <button type="button" class="d4-trigger" id="d4-btn-3" aria-expanded="false" aria-controls="d4-panel-3" onclick="toggle4D(3)">
+            <span class="d4-index">04</span>
+            <span class="d4-heading-group">
+              <span class="d4-title">Diligencia</span>
+              <span class="d4-subtitle">Protección estricta de datos y uso exclusivo de herramienta autorizada.</span>
+            </span>
+            <span class="d4-chevron" aria-hidden="true">
+              <i data-lucide="chevron-down"></i>
+            </span>
+          </button>
+          <div class="d4-panel" id="d4-panel-3" hidden>
+            <div class="d4-columns">
+              <div class="d4-role-box d4-role-box--ai">
+                <p class="d4-role-head"><i data-lucide="cpu" aria-hidden="true"></i> Realizó la IA</p>
+                <ul class="d4-role-list">
+                  <li>Operó dentro de <strong>Gemini</strong>, entorno autorizado por la Consejería, sin acceso a datos personales.</li>
+                </ul>
+              </div>
+              <div class="d4-role-box d4-role-box--human">
+                <p class="d4-role-head"><i data-lucide="users" aria-hidden="true"></i> Realizaron las personas</p>
+                <ul class="d4-role-list">
+                  <li>Se aseguraron de no introducir nombres, datos del alumnado ni ninguna información personal.</li>
+                  <li>Seleccionaron exclusivamente una herramienta autorizada por la Consejería.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 03: RELACIÓN CON EL DUA Y MARCO NORMATIVO -->
+    <section aria-labelledby="sec-dua">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">03 · Relación con el DUA</span>
+          <span class="dossier-meta">Diseño Universal para el Aprendizaje aplicado al claustro</span>
+        </div>
+      </div>
+
+      <h2 id="sec-dua" class="section-title">Tres principios del DUA para eliminar barreras en el centro</h2>
+      <p class="section-lead">El DUA no se limitó a la revisión técnica: organizó cómo la información llegaba al claustro y cómo cada docente podía participar y votar.</p>
+
+      <div class="dua-grid">
+        <article class="dua-card">
+          <div class="dua-card-head">
+            <span class="dua-num">Principio 01</span>
+          </div>
+          <h3 class="dua-title">Implicación</h3>
+          <ul class="dua-list">
+            <li><strong>Ritmo y conocimiento propio:</strong> el trabajo se reparte en cinco sesiones en pareja, con lectura compartida punto a punto para que cada docente aporte a su ritmo.</li>
+            <li><strong>Sentido práctico:</strong> la contextualización ajusta el Plan a la realidad del centro, dando a cada cambio una razón práctica y no solo normativa.</li>
+            <li><strong>Elección de canal:</strong> antes de votar, el claustro tiene plazo para aportar en la sesión, por escrito o hablando con quien hizo la revisión.</li>
+          </ul>
+        </article>
+
+        <article class="dua-card">
+          <div class="dua-card-head">
+            <span class="dua-num">Principio 02</span>
+          </div>
+          <h3 class="dua-title">Representación</h3>
+          <ul class="dua-list">
+            <li><strong>PDF revisado y lectura compartida:</strong> parte del Plan vigente y la normativa dada, leído en pareja punto a punto.</li>
+            <li><strong>Sin barreras por extensión o jerga:</strong> se acompaña de una <em>tabla de cambios</em> y de un <em>resumen de una página</em> por documento con cambios señalados en el texto.</li>
+            <li><strong>Accesibilidad técnica:</strong> el PDF conserva títulos y estructura para leerse con lector de pantalla y ampliarse sin perder formato.</li>
+          </ul>
+        </article>
+
+        <article class="dua-card">
+          <div class="dua-card-head">
+            <span class="dua-num">Principio 03</span>
+          </div>
+          <h3 class="dua-title">Acción y expresión</h3>
+          <ul class="dua-list">
+            <li><strong>Múltiples vías de respuesta:</strong> la revisión se comprueba en pareja y cada docente del claustro puede responder en la sesión o por escrito (comentarios en el documento compartido).</li>
+            <li><strong>Votación por bloques:</strong> permite valorar cada cambio por separado en lugar de un único bloque cerrado.</li>
+            <li><strong>Sin improvisación forzada:</strong> las dudas y acuerdos quedan en el acta para que nadie tenga que improvisar su respuesta en directo.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="schema-strip">
+        <div class="schema-header">
+          <div>
+            <span class="figure-label" style="margin-bottom: 0;">Instrumento de apoyo al claustro</span>
+            <h3 style="font-size: 1.15rem; margin-top: 0.2rem;">Estructura de la tabla de cambios que acompaña al PDF</h3>
+          </div>
+          <span class="dossier-meta">Complementa al documento completo</span>
+        </div>
+        <div class="schema-table-wrap">
+          <table class="schema-table">
+            <thead>
+              <tr>
+                <th scope="col">Apartado</th>
+                <th scope="col">Texto anterior</th>
+                <th scope="col">Texto nuevo</th>
+                <th scope="col">Motivo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sección concreta del Plan</td>
+                <td>Redacción vigente previa</td>
+                <td>Propuesta revisada con la IA y validada en pareja</td>
+                <td>Razón normativa o de contextualización al centro</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="dua-verification-row">
+        <aside class="aside-box">
+          <p class="aside-title">Comprobado: sí</p>
+          <p>La tabla de cambios y el resumen de una página <strong>acompañan al texto completo</strong> —que es el documento que se somete a aprobación— y en ningún caso lo sustituyen.</p>
+        </aside>
+
+        <aside class="aside-box">
+          <p class="aside-title">Marco normativo</p>
+          <p><strong>Decreto 101/2023, de 9 de mayo</strong> (arts. 4.d y 7).</p>
+          <div class="pending-note" role="note" aria-label="Comprobación normativa pendiente de confirmar">
+            <div><span class="pending-badge">Pendiente de confirmar</span></div>
+            <p>Si se mantiene Infantil, comprobar también el Decreto 100/2023 en el BOJA.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 04: RECUADRO FINAL DE VALORACIÓN Y CONSEJOS -->
+    <section aria-labelledby="sec-valoracion">
+      <div class="dossier-bar">
+        <div class="dossier-bar-left">
+          <span class="dossier-pill">04 · Valoración y réplica</span>
+          <span class="dossier-meta">Balance de la experiencia</span>
+        </div>
+      </div>
+
+      <div class="takeaway-box">
+        <div class="takeaway-header">
+          <h2 id="sec-valoracion" class="section-title" style="margin-bottom: 0;">Valoración y consejos clave para repetir la experiencia</h2>
+          <span class="dossier-meta">Gestión de centro</span>
+        </div>
+
+        <div class="takeaway-metrics">
+          <div class="metric-tile">
+            <span class="figure-label" style="margin-bottom: 0;">Tiempo total invertido</span>
+            <strong>5 sesiones de 4 h</strong>
+            <span style="font-size: 0.875rem; color: var(--on-surface-variant);">Con IA y revisión humana incluidas.</span>
+          </div>
+          <div class="metric-tile">
+            <span class="figure-label" style="margin-bottom: 0;">¿Se llevó al aula?</span>
+            <strong>No aplica</strong>
+            <span style="font-size: 0.875rem; color: var(--on-surface-variant);">Es un uso de gestión de centro.</span>
+          </div>
+          <div class="metric-tile">
+            <span class="figure-label" style="margin-bottom: 0;">Resultado entregado</span>
+            <strong>PDF + Tabla + Resumen</strong>
+            <span style="font-size: 0.875rem; color: var(--on-surface-variant);">Llevado al claustro para aprobación.</span>
+          </div>
+        </div>
+
+        <div class="advice-grid">
+          <div>
+            <h3 style="font-size: 1.25rem; margin-bottom: var(--space-md);">Tres consejos de los autores para quien quiera replicarlo</h3>
+            <ol class="advice-list">
+              <li class="advice-item">
+                <span class="advice-num">01</span>
+                <div>
+                  <h3>Aporta tú la normativa concreta</h3>
+                  <p>Dale a la IA la normativa concreta en vez de dejar que la busque por su cuenta.</p>
+                </div>
+              </li>
+              <li class="advice-item">
+                <span class="advice-num">02</span>
+                <div>
+                  <h3>Reserva la revisión final para personas</h3>
+                  <p>La IA acelera los borradores y la comparación, pero la validación y decisión final pertenecen siempre al equipo docente.</p>
+                </div>
+              </li>
+              <li class="advice-item">
+                <span class="advice-num">03</span>
+                <div>
+                  <h3>Trabaja en pareja y lee punto a punto</h3>
+                  <p>Mejor si son dos personas y leen punto a punto: contrastan interpretaciones y evitan omisiones en el Plan.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="checklist-card">
+            <div class="checklist-head">
+              <p class="aside-title" style="margin: 0;">Comprobación antes de empezar</p>
+              <span class="checklist-status" id="checklist-count">0 de 4 listas</span>
+            </div>
+            <div class="check-items">
+              <label class="check-label">
+                <input type="checkbox" onchange="updateChecklist()">
+                <span>Documento propio sin nombres ni datos del alumnado.</span>
+              </label>
+              <label class="check-label">
+                <input type="checkbox" onchange="updateChecklist()">
+                <span>Herramienta autorizada por la Consejería (p. ej. Gemini).</span>
+              </label>
+              <label class="check-label">
+                <input type="checkbox" onchange="updateChecklist()">
+                <span>Normativa concreta descargada para entregarla a la IA.</span>
+              </label>
+              <label class="check-label">
+                <input type="checkbox" onchange="updateChecklist()">
+                <span>Pareja docente acordada para revisión final punto a punto.</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PIE DE AUTORÍA Y LICENCIA -->
+    <footer class="dossier-footer">
+      <span class="footer-license-tag">Autoría y licencia · CC BY-NC-SA 4.0</span>
+      <p>
+        Revisión del Plan de Centro con IA · Grupo de Trabajo «IA en la práctica docente»,
+        Centro (<span class="pending-badge">Pendiente de confirmar</span>),
+        curso 2026/2027 · CC BY-NC-SA 4.0. Basado en el marco AI Fluency de R. Dakan y J. Feller (con Anthropic), CC BY-NC-SA 4.0. Elaborado con apoyo de IA generativa; contenido revisado por el profesorado autor.
+      </p>
+    </footer>
+
+  </main>
+
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <script>
+    const sessionsData = [
+      {
+        num: `Sesión 01`,
+        time: `10:00 – 14:00 h`,
+        title: `Documentos de partida, privacidad y encargo inicial`,
+        summary: `Preparación del Plan de Centro vigente y de la legislación actualizada sin incluir datos personales, estableciendo con precisión qué se espera de Gemini.`,
+        aiWork: `Recibe el Plan de Centro vigente y la normativa concreta en un entorno autorizado por la Consejería (Gemini), con premisas y objetivos claros para prevenir situaciones no deseadas.`,
+        humanWork: `Mª José y Abraham verifican la ausencia total de nombres o datos del alumnado, seleccionan la normativa exacta y definen las instrucciones de partida.`,
+        output: `Plan de partida acotado y primeras premisas de revisión.`
+      },
+      {
+        num: `Sesión 02`,
+        time: `10:00 – 14:00 h`,
+        title: `Primera vuelta de revisión normativa y contextualización`,
+        summary: `Inicio del ciclo de aumentación iterativa: pedir a la IA la actualización respecto al marco vigente, revisar sus propuestas y ajustar a la realidad del centro.`,
+        aiWork: `Contrasta el texto vigente con la legislación aportada y genera propuestas de ajuste de redacción y actualización normativa.`,
+        humanWork: `La pareja docente lee las devoluciones de la IA, detecta qué cambios responden realmente a la realidad del colegio y formula nuevas peticiones concretas.`,
+        output: `Primeros borradores revisados y lista de ajustes necesarios.`
+      },
+      {
+        num: `Sesión 03`,
+        time: `10:00 – 14:00 h`,
+        title: `Iteración en pareja («pedíamos, revisábamos y volvíamos a pedir»)`,
+        summary: `Vueltas sucesivas sobre los apartados del Plan de Centro para afinar la redacción y comprobar en lectura compartida que no se pierde contenido obligatorio.`,
+        aiWork: `Refina los documentos tras cada nueva ronda de indicaciones, devolviendo versiones actualizadas en formato PDF.`,
+        humanWork: `Lectura compartida punto a punto entre las dos personas para vigilar que la revisión no elimine nada esencial y preparar el contraste de referencias con el BOJA (pendiente de confirmar).`,
+        output: `Borradores depurados tras múltiples iteraciones.`
+      },
+      {
+        num: `Sesión 04`,
+        time: `10:00 – 14:00 h`,
+        title: `Maquetación accesible, tabla de cambios y resumen`,
+        summary: `Construcción de los materiales de representación DUA para que todo el claustro pueda entender los cambios sin barreras por extensión ni lenguaje normativo.`,
+        aiWork: `Entrega la documentación revisada en PDF manteniendo títulos y estructura navegable para lectores de pantalla y ampliación.`,
+        humanWork: `Preparan la tabla de cambios (apartado, texto anterior, texto nuevo y motivo) y el resumen de una página por documento con cambios señalados, comprobando que acompañan al texto completo sin sustituirlo.`,
+        output: `PDF estructurado + tabla de cambios + resumen de 1 página.`
+      },
+      {
+        num: `Sesión 05`,
+        time: `10:00 – 14:00 h`,
+        title: `Revisión final sin IA y traslado al claustro para aprobación`,
+        summary: `Cierre humano definitivo de los documentos, apertura del plazo de aportaciones previas y presentación al claustro con votación por bloques y registro en acta.`,
+        aiWork: `No interviene en la decisión final ni en la validación institucional del texto definitivo.`,
+        humanWork: `La pareja revisa sin IA cada documento, decide qué cambios entran, habilita canales flexibles de aportación previa (en sesión, por escrito o en conversación) y presenta al claustro para aprobar por bloques y recoger acuerdos en acta.`,
+        output: `Documentación definitiva elevada al claustro para su aprobación.`
+      }
+    ];
+
+    let currentSessionIdx = 0;
+    let showAllSessions = false;
+
+    function buildSessionHTML(s, idx, includeNav) {
+      const prevDisabled = idx === 0 ? `disabled` : ``;
+      const nextDisabled = idx === sessionsData.length - 1 ? `disabled` : ``;
+      const navBlock = includeNav
+        ? `<div class="session-footer-nav">
+             <div class="session-output"><strong>Resultado:</strong> ${s.output}</div>
+             <div class="nav-btn-group">
+               <button type="button" class="btn-nav" onclick="stepSession(-1)" ${prevDisabled}>← Anterior</button>
+               <button type="button" class="btn-nav btn-nav--primary" onclick="stepSession(1)" ${nextDisabled}>Siguiente →</button>
+             </div>
+           </div>`
+        : `<div class="session-footer-nav">
+             <div class="session-output"><strong>Resultado:</strong> ${s.output}</div>
+           </div>`;
+
+      return `
+        <div class="session-stage-header">
+          <div class="session-badge-row">
+            <span class="session-index-pill">${s.num}</span>
+            <span class="session-time">${s.time}</span>
+          </div>
+          <span class="dossier-meta">Modo: Aumentación</span>
+        </div>
+        <h3 class="session-stage-title">${s.title}</h3>
+        <p class="session-stage-summary">${s.summary}</p>
+        <div class="session-split">
+          <div class="role-panel role-panel--ai">
+            <div class="role-panel-label">Apoyo de Gemini</div>
+            <p>${s.aiWork}</p>
+          </div>
+          <div class="role-panel role-panel--human">
+            <div class="role-panel-label">Labor docente en pareja / claustro</div>
+            <p>${s.humanWork}</p>
+          </div>
+        </div>
+        ${navBlock}
+      `;
+    }
+
+    function renderActiveSession() {
+      const stage = document.getElementById('session-stage');
+      const progressText = document.getElementById('timeline-progress-text');
+      const s = sessionsData[currentSessionIdx];
+      if (!stage || !s) return;
+
+      stage.innerHTML = buildSessionHTML(s, currentSessionIdx, true);
+      stage.setAttribute('aria-labelledby', `tab-s${currentSessionIdx + 1}`);
+
+      if (progressText) {
+        progressText.textContent = showAllSessions
+          ? `Mostrando las 5 sesiones`
+          : `Sesión ${currentSessionIdx + 1} de ${sessionsData.length}`;
+      }
+
+      for (let i = 0; i < sessionsData.length; i++) {
+        const tab = document.getElementById(`tab-s${i + 1}`);
+        if (tab) {
+          tab.setAttribute('aria-selected', i === currentSessionIdx ? 'true' : 'false');
+        }
+      }
+    }
+
+    function renderAllSessions() {
+      const container = document.getElementById('all-sessions-list');
+      if (!container) return;
+      let html = ``;
+      for (let i = 0; i < sessionsData.length; i++) {
+        html += `<article class="session-stage">${buildSessionHTML(sessionsData[i], i, false)}</article>`;
+      }
+      container.innerHTML = html;
+    }
+
+    function selectSession(idx) {
+      if (idx < 0 || idx >= sessionsData.length) return;
+      currentSessionIdx = idx;
+      renderActiveSession();
+    }
+
+    function stepSession(delta) {
+      const next = currentSessionIdx + delta;
+      if (next >= 0 && next < sessionsData.length) {
+        selectSession(next);
+      }
+    }
+
+    function toggleTimelineView() {
+      showAllSessions = !showAllSessions;
+      const singleView = document.getElementById('single-session-view');
+      const allView = document.getElementById('all-sessions-list');
+      const btn = document.getElementById('toggle-timeline-view');
+      const progressText = document.getElementById('timeline-progress-text');
+
+      if (!singleView || !allView || !btn) return;
+
+      if (showAllSessions) {
+        singleView.setAttribute('hidden', '');
+        allView.removeAttribute('hidden');
+        btn.setAttribute('aria-pressed', 'true');
+        btn.textContent = `Volver a vista paso a paso`;
+        if (progressText) progressText.textContent = `Mostrando las 5 sesiones`;
+      } else {
+        allView.setAttribute('hidden', '');
+        singleView.removeAttribute('hidden');
+        btn.setAttribute('aria-pressed', 'false');
+        btn.textContent = `Ver las 5 sesiones a la vez`;
+        renderActiveSession();
+      }
+    }
+
+    function syncToggleAll4DButton() {
+      const toggleBtn = document.getElementById('toggle-all-4d');
+      if (!toggleBtn) return;
+      let expandedCount = 0;
+      for (let i = 0; i < 4; i++) {
+        const b = document.getElementById(`d4-btn-${i}`);
+        if (b && b.getAttribute('aria-expanded') === 'true') expandedCount++;
+      }
+      const allOpen = expandedCount === 4;
+      toggleBtn.setAttribute('aria-pressed', allOpen ? 'true' : 'false');
+      toggleBtn.textContent = allOpen ? `Contraer las 4 tarjetas` : `Desplegar las 4 tarjetas`;
+    }
+
+    function toggle4D(idx) {
+      const btn = document.getElementById(`d4-btn-${idx}`);
+      const panel = document.getElementById(`d4-panel-${idx}`);
+      if (!btn || !panel) return;
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+      if (isExpanded) {
+        panel.setAttribute('hidden', '');
+      } else {
+        panel.removeAttribute('hidden');
+      }
+      syncToggleAll4DButton();
+    }
+
+    function toggleAll4D() {
+      const toggleBtn = document.getElementById('toggle-all-4d');
+      if (!toggleBtn) return;
+      const openAll = toggleBtn.getAttribute('aria-pressed') !== 'true';
+      for (let i = 0; i < 4; i++) {
+        const btn = document.getElementById(`d4-btn-${i}`);
+        const panel = document.getElementById(`d4-panel-${i}`);
+        if (!btn || !panel) continue;
+        btn.setAttribute('aria-expanded', openAll ? 'true' : 'false');
+        if (openAll) {
+          panel.removeAttribute('hidden');
+        } else {
+          panel.setAttribute('hidden', '');
+        }
+      }
+      syncToggleAll4DButton();
+    }
+
+    function updateChecklist() {
+      const boxes = document.querySelectorAll('.check-items input[type="checkbox"]');
+      const countEl = document.getElementById('checklist-count');
+      if (!countEl || !boxes.length) return;
+      let checked = 0;
+      boxes.forEach(function (box) {
+        if (box.checked) checked++;
+      });
+      countEl.textContent = `${checked} de ${boxes.length} listas`;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      renderActiveSession();
+      renderAllSessions();
+      syncToggleAll4DButton();
+      updateChecklist();
+      if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+        lucide.createIcons();
+      }
+    });
+  </script>
+</body>
+</html>
